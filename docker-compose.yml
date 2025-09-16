@@ -1,0 +1,40 @@
+services:
+  db:
+    restart: always
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=weight_loss
+      - POSTGRES_USER=weight_loss
+      - POSTGRES_PASSWORD=weight_loss_127238
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d weight_loss -U weight_loss"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s
+  web:
+    restart: always
+    build: .
+    ports:
+      - 8000:8000
+    command: ["uv", "run", "uvicorn", "--host", "0.0.0.0", "app.main:app"]
+    healthcheck:
+      test: curl --fail http://localhost:8000/docs || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    depends_on:
+      - db
+      - redis
+
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    restart: always
+
+volumes:
+  db_data:

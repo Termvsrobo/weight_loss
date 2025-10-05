@@ -16,10 +16,13 @@ dependencies = [
     "redis>=6.4.0",
     "sqlalchemy-orm>=1.2.10",
     "phonenumbers>=9.0.14",
+    "nicegui>=3.0.2",
 ]
 
 [dependency-groups]
 dev = [
+    "flake8>=7.3.0",
+    "isort>=6.1.0",
     "pytest>=8.4.2",
     "pytest-asyncio>=1.2.0",
     "ruff>=0.13.0",

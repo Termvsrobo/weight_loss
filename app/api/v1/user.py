@@ -2,8 +2,7 @@ from pathlib import Path
 
 from fastapi import APIRouter
 
-from app.schemas.user import UserModel
-
+from schemas.user import UserModel
 
 router = APIRouter(prefix=f"/{Path(__file__).stem}", tags=[Path(__file__).stem])
 

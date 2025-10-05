@@ -2,10 +2,9 @@ from pathlib import Path
 from typing import Optional
 
 from fastapi import APIRouter
-from pydantic import SecretStr, EmailStr
+from pydantic import EmailStr, SecretStr
 
-from app.schemas.user import PhoneModel, UserModel
-
+from schemas.user import PhoneModel, UserModel
 
 router = APIRouter(prefix=f"/{Path(__file__).stem}", tags=[Path(__file__).stem])
 

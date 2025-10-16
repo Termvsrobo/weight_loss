@@ -17,6 +17,13 @@ dependencies = [
     "sqlalchemy-orm>=1.2.10",
     "phonenumbers>=9.0.14",
     "nicegui>=3.0.2",
+    "psycopg2-binary>=2.9.11",
+    "selenium>=4.32.0",
+    "bcrypt>=5.0.0",
+    "sqlalchemy-utils>=0.42.0",
+    "fastapi-jwt>=0.3.0",
+    "authlib>=1.6.5",
+    "pyjwt>=2.10.1",
 ]
 
 [dependency-groups]
@@ -25,5 +32,19 @@ dev = [
     "isort>=6.1.0",
     "pytest>=8.4.2",
     "pytest-asyncio>=1.2.0",
+    "pytest-env>=1.2.0",
     "ruff>=0.13.0",
 ]
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "app"
+]
+env = [
+  'TEST_MODE=true',
+  'DB_DSN=postgresql://weight_loss:weight_loss_127238@172.18.0.2/test_weight_loss',
+  'SECRET_KEY=asdflkjweroij'
+]
+asyncio_mode="auto"
+main_file="main.py"
+addopts="-p nicegui.testing.plugin"

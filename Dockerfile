@@ -11,3 +11,4 @@ RUN sh /uv-installer.sh && rm /uv-installer.sh
 ENV PATH="/root/.local/bin/:$PATH"
 RUN  uv sync --no-dev
 ENV PATH="/app/.venv/bin:$PATH"
+WORKDIR /app/app

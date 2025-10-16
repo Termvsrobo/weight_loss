@@ -1,4 +1,7 @@
-from pydantic import BaseModel
+from typing import Optional
+
+from pydantic import BaseModel, ConfigDict
+from pydantic import EmailStr, SecretStr, NonNegativeFloat
 from pydantic_extra_types.phone_numbers import PhoneNumber
 
 
@@ -17,4 +20,37 @@ class PhoneMixin:
 class PhoneModel(PhoneMixin, BaseModel): ...
 
 
-class UserModel(BaseModel): ...
+class UserSchema(PhoneMixin, BaseModel):
+    id: Optional[int] = None
+    name: Optional[str] = None
+    email: Optional[EmailStr] = None
+    country: Optional[str] = None
+    telegram: Optional[str] = None
+    avatar_url: Optional[str] = None
+    tariff_status: Optional[str] = None
+    deposit: Optional[float] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class UserUpdateSchema(BaseModel):
+    name: Optional[str] = None
+    email: Optional[EmailStr] = None
+    country: Optional[str] = None
+    telegram: Optional[str] = None
+    avatar_url: Optional[str] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class UserRegisterSchema(PhoneMixin, BaseModel):
+    password: SecretStr
+    email: Optional[EmailStr] = None
+
+
+class UserLoginSchema(PhoneMixin, BaseModel):
+    password: SecretStr
+
+
+class AmountSchema(BaseModel):
+    amount: NonNegativeFloat

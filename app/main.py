@@ -34,7 +34,13 @@ app.include_router(user_router)
 app.include_router(weight_router)
 
 app.add_middleware(
-    JWTAuthenticationMiddleware, exclude_urls=["/auth/register", "/auth/login"]
+    JWTAuthenticationMiddleware,
+    exclude_urls=[
+        "/auth/register",
+        "/auth/login",
+        "/auth/send_sms_code",
+        "/auth/verify_sms_code",
+    ]
 )
 
 

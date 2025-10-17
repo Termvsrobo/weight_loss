@@ -4,7 +4,7 @@ from fastapi import APIRouter
 
 from models.user import UserModel
 from schemas.auth import AccessToken
-from schemas.user import PhoneModel, UserSchema, UserRegisterSchema, UserLoginSchema
+from schemas.user import PhoneModel, UserSchema, UserRegisterSchema, UserLoginSchema, SmsCodeSchema
 from services.auth_service import get_access_refresh_token
 
 router = APIRouter(prefix=f"/{Path(__file__).stem}", tags=[Path(__file__).stem])
@@ -16,8 +16,8 @@ async def send_sms_code(phone: PhoneModel):
 
 
 @router.post("/verify_sms_code")
-async def verify_sms_code(phone: PhoneModel, code: str):
-    return code == "123456"
+async def verify_sms_code(phone: SmsCodeSchema):
+    return phone.code == "123456"
 
 
 @router.post("/login")

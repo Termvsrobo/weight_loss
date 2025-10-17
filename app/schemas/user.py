@@ -54,3 +54,6 @@ class UserLoginSchema(PhoneMixin, BaseModel):
 
 class AmountSchema(BaseModel):
     amount: NonNegativeFloat
+
+class SmsCodeSchema(PhoneMixin, BaseModel):
+    code: str

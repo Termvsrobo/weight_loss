@@ -28,6 +28,23 @@ class Base(DeclarativeBase):
         else:
             return db.query(cls)
 
+    @classmethod
+    def update(cls, new_data, **kwargs):
+        if kwargs:
+            return db.query(cls).filter_by(**kwargs).update(new_data)
+        else:
+            return db.query(cls)
+
+    def refresh_from_db(self):
+        db.refresh(self)
+
+    @classmethod
+    def exists(cls, **kwargs):
+        if kwargs:
+            return db.query(db.query(cls).filter_by(**kwargs).exists()).scalar()
+        else:
+            return db.query(db.query(cls).exists()).scalar()
+
 
 def get_db():
     with SessionLocal() as db:

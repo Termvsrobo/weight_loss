@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException, status
 
 from models.user import UserModel
 from schemas.auth import AccessToken
@@ -28,7 +28,11 @@ async def login(user_login: UserLoginSchema):
             access_token, refresh_token = get_access_refresh_token(user)
             return AccessToken(access_token=access_token, refresh_token=refresh_token)
 
-    return AccessToken(access_token="", refresh_token="")
+    return HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail='Could not validate credentials',
+        headers={'WWW-Authenticate': 'Bearer'},
+    )
 
 
 @router.post("/register")

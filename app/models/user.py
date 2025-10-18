@@ -45,19 +45,9 @@ class UserModel(Base):
         entered_pw = password.encode("utf-8")
         return bcrypt.checkpw(entered_pw, self.password_hash.encode("utf-8"))
 
-    @classmethod
-    def update(cls, new_data, **kwargs):
-        if kwargs:
-            return db.query(UserModel).filter_by(**kwargs).update(new_data)
-        else:
-            return db.query(UserModel)
-
     def top_up(self, amount: float):
         if self.deposit is None:
             self.deposit = amount
         else:
             self.deposit += amount
         self.save()
-
-    def refresh_from_db(self):
-        db.refresh(self)

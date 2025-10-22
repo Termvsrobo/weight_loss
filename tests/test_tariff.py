@@ -8,19 +8,23 @@ from services.auth_service import get_access_refresh_token
 from models.tariff import TariffModel
 
 
-def test_get_tarif(get_user):
-    tariffs = []
-    for i in range(5):
+@pytest.mark.parametrize(
+    'tariff_data',
+    [
+        None,
+        dict(name="Challenge_15", percent=2, description="Описание 15")
+    ]
+)
+def test_get_tarif(get_user, tariff_data):
+    if tariff_data:
         tariff = TariffModel(
-            name=f"Challenge_{i}",
-            percent=i,
-            description=f"Описание {i}"
+            **tariff_data
         )
         is_ok, error = tariff.save()
         assert is_ok is True
-        tariffs.append(tariff)
-
-    user = get_user(phone='+79991234567', password='password', email='test@example.com')
+        user = get_user(phone='+79991234567', password='password', email='test@example.com', tariff_id=tariff.id)
+    else:
+        user = get_user(phone='+79991234567', password='password', email='test@example.com')
     access_token, refresh_token = get_access_refresh_token(user)
     with TestClient(app) as client:
         response = client.get(
@@ -31,11 +35,11 @@ def test_get_tarif(get_user):
         )
         assert response.status_code == 200
         data = response.json()
-        assert data == [
-            dict(
+        if tariff_data:
+            assert data == dict(
                 name=tariff.name,
                 percent=tariff.percent,
                 description=tariff.description,
             )
-            for tariff in sorted(tariffs, key=lambda x: x.id)
-        ]
+        else:
+            assert data is None

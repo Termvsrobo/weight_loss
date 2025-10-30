@@ -40,7 +40,7 @@ app.add_middleware(
         "/auth/login",
         "/auth/send_sms_code",
         "/auth/verify_sms_code",
-    ]
+    ],
 )
 
 

@@ -26,8 +26,7 @@ async def set_preferences(request: Request, new_preference: PreferenceSchema):
         preference.refresh_from_db()
     else:
         preference = PreferenceModel(
-            user_id=request.state.user.id,
-            **new_preference.model_dump()
+            user_id=request.state.user.id, **new_preference.model_dump()
         )
         preference.save()
     return PreferenceSchema.model_validate(preference)

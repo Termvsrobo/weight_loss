@@ -2,6 +2,7 @@
 from .challenge import ChallengeModel
 
 from .notification import PreferenceModel
+
 # from referral import Referral
 from .tariff import TariffModel
 from .transaction import TransactionModel
@@ -14,5 +15,5 @@ __all__ = [
     "TariffModel",
     "TransactionModel",
     "WeightLogModel",
-    "PreferenceModel"
+    "PreferenceModel",
 ]

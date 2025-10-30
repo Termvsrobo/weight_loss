@@ -1,12 +1,12 @@
 from typing import List
 
 import bcrypt
-from sqlalchemy import String, Float, Boolean, ForeignKey
+from sqlalchemy import String, Float, Boolean, ForeignKey, event
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import mapped_column, Mapped
 from sqlalchemy.orm import relationship
 
-from database import Base, db
+from database import Base
 
 
 class UserModel(Base):
@@ -51,3 +51,13 @@ class UserModel(Base):
         else:
             self.deposit += amount
         self.save()
+
+
+@event.listens_for(UserModel, "after_insert")
+def add_tariff_to_user(mapper, connection, target):
+    tariff_model = next(
+        filter(lambda x: x.class_.__name__ == "TariffModel", mapper.registry.mappers)
+    )
+    tariff = tariff_model.class_.filter(name="Стартовый").one()
+    if tariff:
+        target.__class__.update({"tariff_id": tariff.id}, id=target.id)

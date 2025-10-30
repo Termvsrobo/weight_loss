@@ -4,7 +4,13 @@ from fastapi import APIRouter, HTTPException, status
 
 from models.user import UserModel
 from schemas.auth import AccessToken
-from schemas.user import PhoneModel, UserSchema, UserRegisterSchema, UserLoginSchema, SmsCodeSchema
+from schemas.user import (
+    PhoneModel,
+    UserSchema,
+    UserRegisterSchema,
+    UserLoginSchema,
+    SmsCodeSchema,
+)
 from services.auth_service import get_access_refresh_token
 
 router = APIRouter(prefix=f"/{Path(__file__).stem}", tags=[Path(__file__).stem])
@@ -30,8 +36,8 @@ async def login(user_login: UserLoginSchema):
 
     return HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail='Could not validate credentials',
-        headers={'WWW-Authenticate': 'Bearer'},
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
     )
 
 
@@ -40,6 +46,7 @@ async def register(user_register: UserRegisterSchema):
     user = UserModel(**user_register.model_dump(exclude=["password"]))
     user.set_password(user_register.password.get_secret_value())
     is_ok, _ = user.create()
+    user.refresh_from_db()
     if is_ok:
         model_user = UserSchema.model_validate(user)
         return model_user

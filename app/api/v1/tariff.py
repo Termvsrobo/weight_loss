@@ -3,7 +3,6 @@ from typing import Optional
 
 from fastapi import APIRouter, Request
 
-from models.tariff import TariffModel
 from schemas.tariff import TariffSchema
 
 router = APIRouter(prefix=f"/{Path(__file__).stem}", tags=[Path(__file__).stem])

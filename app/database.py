@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, NullPool
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.orm import DeclarativeBase
@@ -6,7 +6,10 @@ from sqlalchemy.exc import IntegrityError
 
 from config import settings
 
-engine = create_engine(settings.DB_DSN.encoded_string())
+engine = create_engine(
+    settings.DB_DSN.encoded_string(),
+    poolclass=NullPool,
+)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 

@@ -39,5 +39,26 @@ services:
       - 6379:6379
     restart: always
 
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80    # HTTP (для валидации Certbot)
+      - 443:443  # HTTPS
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d          # Nginx конфиг
+      - ./certbot/www:/var/www/certbot            # Certbot HTTP challenge
+      - ./certbot/conf:/etc/letsencrypt           # SSL certificates
+    restart: unless-stopped
+    depends_on:
+      - web
+
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email Ivv0000@gmail.com --agree-tos -d ivv000y8.beget.tech
+    restart: unless-stopped
+
 volumes:
   db_data:

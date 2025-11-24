@@ -2,9 +2,8 @@ import pytest
 from fastapi.testclient import TestClient
 
 from main import app
-from services.auth_service import get_access_refresh_token
-
 from models.notification import PreferenceModel
+from services.auth_service import get_access_refresh_token
 
 
 def test_get_notifications(get_user):

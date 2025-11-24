@@ -1,7 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict
-from pydantic import EmailStr, SecretStr, NonNegativeFloat
+from pydantic import BaseModel, ConfigDict, EmailStr, NonNegativeFloat, SecretStr
 from pydantic_extra_types.phone_numbers import PhoneNumber
 
 

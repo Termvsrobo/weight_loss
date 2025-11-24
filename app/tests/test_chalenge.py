@@ -4,9 +4,8 @@ from unittest.mock import ANY
 from fastapi.testclient import TestClient
 
 from main import app
-from services.auth_service import get_access_refresh_token
-
 from models.challenge import ChallengeModel
+from services.auth_service import get_access_refresh_token
 
 
 def test_create_challenge():

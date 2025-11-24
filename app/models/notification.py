@@ -1,5 +1,5 @@
 from sqlalchemy import Boolean, ForeignKey
-from sqlalchemy.orm import mapped_column, Mapped
+from sqlalchemy.orm import Mapped, mapped_column
 
 from database import Base
 

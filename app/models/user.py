@@ -1,10 +1,9 @@
 from typing import List
 
 import bcrypt
-from sqlalchemy import String, Float, Boolean, ForeignKey, event
+from sqlalchemy import Boolean, Float, ForeignKey, String, event
 from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy.orm import mapped_column, Mapped
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from database import Base
 

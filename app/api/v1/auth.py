@@ -1,17 +1,18 @@
 from pathlib import Path
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, Form, HTTPException, status
+from fastapi.security.http import HTTPAuthorizationCredentials
 
 from models.user import UserModel
 from schemas.auth import AccessToken
 from schemas.user import (
     PhoneModel,
-    UserSchema,
-    UserRegisterSchema,
-    UserLoginSchema,
     SmsCodeSchema,
+    UserLoginSchema,
+    UserRegisterSchema,
+    UserSchema,
 )
-from services.auth_service import get_access_refresh_token
+from services.auth_service import get_access_refresh_token, refresh_security
 
 router = APIRouter(prefix=f"/{Path(__file__).stem}", tags=[Path(__file__).stem])
 
@@ -52,3 +53,19 @@ async def register(user_register: UserRegisterSchema):
         return model_user
     else:
         return "Пользователь с таким номером уже существует"
+
+
+@router.post("/refresh_token")
+async def refresh_token(refresh_token: str = Form()):
+    token = HTTPAuthorizationCredentials(scheme="Bearer", credentials=refresh_token)
+    credentials = await refresh_security(token)
+    user = UserModel.filter(phone=credentials.subject.get("phone")).first()
+    if user:
+        access_token, refresh_token = get_access_refresh_token(user)
+        return AccessToken(access_token=access_token, refresh_token=refresh_token)
+
+    return HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )

@@ -4,10 +4,9 @@ from unittest.mock import ANY
 from fastapi.testclient import TestClient
 
 from main import app
-from services.auth_service import get_access_refresh_token
-
 from models.transaction import TransactionModel
 from schemas.transaction import TransactionType
+from services.auth_service import get_access_refresh_token
 
 
 def test_get_transactions(get_user):

@@ -1,6 +1,5 @@
 # from auth import Auth
 from .challenge import ChallengeModel
-
 from .notification import PreferenceModel
 
 # from referral import Referral

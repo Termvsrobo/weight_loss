@@ -1,15 +1,10 @@
 from datetime import datetime
 from typing import List
 
-from sqlalchemy import String, DateTime
-from sqlalchemy.orm import mapped_column, Mapped
-from sqlalchemy import Column
-from sqlalchemy import Table
-from sqlalchemy import ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, DateTime, ForeignKey, String, Table
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from database import Base, db
-
 
 challenge_user_association_table = Table(
     "challenge_user_association_table",

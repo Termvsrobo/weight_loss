@@ -43,7 +43,7 @@ pythonpath = [
 ]
 env = [
   'TEST_MODE=true',
-  'DB_DSN=postgresql://weight_loss:weight_loss_127238@172.18.0.2/test_weight_loss',
+  'DB_DSN=postgresql://weight_loss:weight_loss_127238@172.21.0.2/test_weight_loss',
   'SECRET_KEY=asdflkjweroij'
 ]
 asyncio_mode="auto"

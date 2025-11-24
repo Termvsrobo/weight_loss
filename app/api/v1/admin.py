@@ -2,7 +2,6 @@ from pathlib import Path
 
 from nicegui import APIRouter, ui
 
-
 router = APIRouter(prefix=f"/{Path(__file__).stem}", tags=[Path(__file__).stem])
 
 

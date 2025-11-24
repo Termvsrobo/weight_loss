@@ -2,8 +2,8 @@ from pathlib import Path
 
 from fastapi import APIRouter, Request
 
-from schemas.user import UserSchema, AmountSchema, UserUpdateSchema
 from models.user import UserModel
+from schemas.user import AmountSchema, UserSchema, UserUpdateSchema
 
 router = APIRouter(prefix=f"/{Path(__file__).stem}", tags=[Path(__file__).stem])
 

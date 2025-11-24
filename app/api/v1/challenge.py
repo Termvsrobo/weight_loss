@@ -3,7 +3,7 @@ from pathlib import Path
 from fastapi import APIRouter, Request
 
 from models.challenge import ChallengeModel
-from schemas.challenge import ChallengeSchema, ChallengeJoinSchema
+from schemas.challenge import ChallengeJoinSchema, ChallengeSchema
 
 router = APIRouter(prefix=f"/{Path(__file__).stem}", tags=[Path(__file__).stem])
 

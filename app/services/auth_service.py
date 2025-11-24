@@ -1,23 +1,18 @@
-from typing import Dict
-
-from fastapi_jwt import JwtAccessBearer, JwtRefreshBearer
-
-from config import settings
-from models.user import UserModel
-
-
 import time
-from typing import Awaitable, Callable, List, Optional
+from typing import Awaitable, Callable, Dict, List, Optional
 
 import jwt
 from fastapi import HTTPException, Request
 from fastapi.responses import JSONResponse
 from fastapi.security.http import HTTPAuthorizationCredentials
 from fastapi.security.utils import get_authorization_scheme_param
+from fastapi_jwt import JwtAccessBearer, JwtRefreshBearer
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import Response
 from starlette.types import ASGIApp
 
+from config import settings
+from models.user import UserModel
 
 __all__ = [
     "JWTAuthenticationMiddleware",

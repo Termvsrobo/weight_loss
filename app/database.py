@@ -1,8 +1,6 @@
-from sqlalchemy import create_engine, NullPool
-from sqlalchemy.exc import SQLAlchemyError
-from sqlalchemy.orm import sessionmaker, scoped_session
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy import NullPool, create_engine
+from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+from sqlalchemy.orm import DeclarativeBase, scoped_session, sessionmaker
 
 from config import settings
 

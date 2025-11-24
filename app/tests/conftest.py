@@ -1,13 +1,12 @@
 from argparse import Namespace
-from typing import Optional, Union
 from pathlib import Path
+from typing import Optional, Union
 
 import pytest
+from sqlalchemy_utils import create_database, database_exists, drop_database
 
 from alembic.command import upgrade
 from alembic.config import Config as AlembicConfig
-from sqlalchemy_utils import create_database, database_exists, drop_database
-
 from config import settings
 from database import db
 from models.user import UserModel

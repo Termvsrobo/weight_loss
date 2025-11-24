@@ -3,10 +3,9 @@ from datetime import datetime
 from fastapi.testclient import TestClient
 
 from main import app
-from services.auth_service import get_access_refresh_token
-
 from models.weight import WeightLogModel
 from schemas.weight import WeightStatusType
+from services.auth_service import get_access_refresh_token
 
 
 def test_get_weights(get_user):
